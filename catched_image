@@ -1,0 +1,38 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:rekla_me/app/data/config/app_colors.dart';
+
+Widget imageWidget({
+  String? imageUrl,
+  Widget? errorChild,
+  double? height,
+  double? width,
+  BoxFit fit = BoxFit.cover,
+}) {
+  return imageUrl != null
+      ? CachedNetworkImage(
+          height: height,
+          width: width,
+          placeholder: (context, url) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: AppColors.k4688F4.withOpacity(0.7),
+                strokeWidth: 1,
+              ),
+            );
+          },
+          errorWidget: (context, url, dynamic error) =>
+              errorChild ??
+              Image.asset(
+                'assets/layer_33.png',
+                fit: BoxFit.cover,
+              ),
+          fit: fit,
+          imageUrl: imageUrl,
+        )
+      : errorChild ??
+          Image.asset(
+            'assets/layer_33.png',
+            fit: BoxFit.cover,
+          );
+}
