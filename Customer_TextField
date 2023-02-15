@@ -1,0 +1,165 @@
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trade_gully/app/data/config/app_colors.dart';
+import 'package:trade_gully/app/data/config/text_styles.dart';
+
+/// Custom Text Input Fields
+class TextInputFields extends StatelessWidget {
+  /// Constructs a new TextInputFields
+  const TextInputFields({
+    Key? key,
+    this.suffixWidget,
+    this.prefixWidget,
+    this.keyboardType,
+    this.validator,
+    this.controller,
+    this.obSecureText,
+    this.onTap,
+    this.readOnly,
+    this.contentPadding,
+    this.textAlign,
+    this.name,
+    this.hintText,
+    this.suffix,
+    this.focusNode,
+    this.nameColor,
+    this.hintTextStyle,
+    this.textStyle,
+    this.suffixIconConstraints,
+    this.filled,
+    this.borderColor,
+    this.onChanged,
+    this.errorStyle,
+    this.maxLine = 1,
+    this.fontSize,
+  }) : super(key: key);
+
+  /// Suffix widget
+  final Widget? suffixWidget;
+
+  /// Prefix widget
+  final Widget? prefixWidget;
+
+  /// Keyboard type
+  final TextInputType? keyboardType;
+
+  /// Validator
+  final String? Function(String?)? validator;
+
+  /// TextEditing controller
+  final TextEditingController? controller;
+
+  final bool? obSecureText;
+  final VoidCallback? onTap;
+  final TextAlign? textAlign;
+  final TextStyle? errorStyle;
+  final double? fontSize;
+  final bool? readOnly;
+  final String? name;
+  final EdgeInsetsGeometry? contentPadding;
+  final String? hintText;
+  final Widget? suffix;
+  final FocusNode? focusNode;
+  final Color? nameColor;
+  final TextStyle? hintTextStyle;
+  final Function(String)? onChanged;
+  final TextStyle? textStyle;
+  final bool? filled;
+  final Color? borderColor;
+  final BoxConstraints? suffixIconConstraints;
+  final int maxLine;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (name != null)
+            Text(
+              name!,
+              softWrap: false,
+              style: TextStyles.style500.copyWith(
+                fontSize: fontSize ?? 13.sp,
+                color: nameColor ?? AppColors.k000000,
+              ),
+            ),
+          8.verticalSpace,
+          TextFormField(
+            focusNode: focusNode,
+            readOnly: readOnly ?? false,
+            textAlign: textAlign ?? TextAlign.start,
+            style: textStyle ??
+                TextStyles.style500.copyWith(
+                  fontSize: fontSize ?? 14.sp,
+                  color: AppColors.k000000,
+                ),
+            onChanged: onChanged,
+            onTap: onTap,
+            obscureText: obSecureText ?? false,
+            controller: controller,
+            keyboardType: keyboardType,
+            enabled: readOnly,
+            cursorColor: AppColors.k000000,
+            validator: validator,
+            maxLines: maxLine,
+            decoration: InputDecoration(
+              fillColor: filled ?? false ? AppColors.kF5F5F5 : null,
+              filled: filled,
+              hintText: hintText,
+              hintStyle: hintTextStyle ??
+                  TextStyles.hintText.copyWith(
+                    color: AppColors.k8F90A6,
+                  ),
+              errorMaxLines: 2,
+              errorStyle: errorStyle,
+              contentPadding: contentPadding ??
+                  EdgeInsets.only(bottom: 10.h, top: 10.h, left: 10.w),
+              border: border,
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  width: 1.r,
+                  color: filled ?? false
+                      ? AppColors.kF5F5F5
+                      : borderColor ?? AppColors.k8F90A6,
+                ),
+              ),
+              suffixIconConstraints: suffixIconConstraints,
+              disabledBorder: border,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  width: 1.r,
+                  color: filled ?? false
+                      ? AppColors.kF5F5F5
+                      : borderColor ?? AppColors.k8F90A6,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  width: 1.r,
+                  color: Colors.red,
+                ),
+              ),
+              suffix: suffix,
+              enabledBorder: border,
+              suffixIcon: suffixWidget,
+              prefixIcon: prefixWidget,
+            ),
+          ),
+        ],
+      );
+
+  /// Border
+  OutlineInputBorder get border => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.r),
+        borderSide: BorderSide(
+          width: 1.r,
+          color: filled ?? false
+              ? AppColors.kF5F5F5
+              : borderColor ?? AppColors.k8F90A6,
+        ),
+      );
+}
